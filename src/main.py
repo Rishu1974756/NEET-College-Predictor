@@ -1,21 +1,16 @@
+import os
+
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from .predictor import predict_colleges, get_options
 
+
 app = FastAPI()
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=[
-        "http://127.0.0.1:5500",
-        "http://localhost:5500"
-    ],
-    allow_credentials=False,
-    allow_methods=["*"],
-    allow_headers=["*"]
-)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+FRONTEND_DIR = os.path.join(BASE_DIR, "frontend")
 
 
 class PredictionRequest(BaseModel):
@@ -28,19 +23,19 @@ class PredictionRequest(BaseModel):
     phase: int = 1
 
 
-@app.get("/")
-def home():
+@app.get("/api/health")
+def health():
     return {
         "message": "NEET College Predictor API is running"
     }
 
 
-@app.get("/options")
+@app.get("/api/options")
 def options():
     return get_options()
 
 
-@app.post("/predict")
+@app.post("/api/predict")
 def predict(data: PredictionRequest):
     results = predict_colleges(
         rank=data.rank,
@@ -57,3 +52,13 @@ def predict(data: PredictionRequest):
         "success": True,
         "results": results
     }
+
+
+app.mount(
+    "/",
+    StaticFiles(
+        directory=FRONTEND_DIR,
+        html=True
+    ),
+    name="frontend"
+)
