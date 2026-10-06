@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CEIQ - NEET College Predictor</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="nav-container">
+
+        <a href="#" class="logo-link">
+            <img src="ceiq-logo.png" alt="CEIQ Logo" class="logo">
+        </a>
+
+        <nav class="nav-menu">
+            <a href="#" class="nav-link active">Home</a>
+            <a href="#predictor" class="nav-link">NEET Predictor</a>
+            <a href="#how-it-works" class="nav-link">How It Works</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </nav>
+
+        <a href="#predictor" class="start-btn">
+            Start Prediction
+            <span>→</span>
+        </a>
+
+        <button
+            type="button"
+            class="mobile-menu-btn"
+            id="mobileMenuBtn"
+            aria-label="Open navigation menu"
+        >
+            ☰
+        </button>
+
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#">Home</a>
+        <a href="#predictor">NEET Predictor</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#contact">Contact</a>
+    </div>
+</header>
+
+
+<main>
+
+    <section class="landing-section">
+        <div class="landing-container">
+            <img
+                src="landing.png"
+                alt="CEIQ NEET College Predictor"
+                class="landing-image"
+            >
+        </div>
+    </section>
+
+
+    <section class="predictor-section" id="predictor">
+
+        <div class="predictor-card">
+
+            <div class="predictor-heading">
+
+                <div class="heading-icon">
+                    📋
+                </div>
+
+                <div>
+                    <h1>NEET College Predictor</h1>
+                    <p>
+                        Enter your details to find colleges that match your profile.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="round-info">
+                <span class="status-dot"></span>
+                NEET 2026 · Round 1 Data
+            </div>
+
+
+            <form id="predictionForm">
+
+                <div class="form-group full-width">
+
+                    <label for="rank">
+                        NEET Rank <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="number"
+                        id="rank"
+                        name="rank"
+                        min="1"
+                        step="1"
+                        placeholder="Enter your NEET All India Rank"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label for="candidateCategory">
+                            Candidate Category
+                            <span class="required">*</span>
+                        </label>
+
+                        <select
+                            id="candidateCategory"
+                            name="candidateCategory"
+                            required
+                        >
+                            <option value="">Select Category</option>
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="course">
+                            Course <span class="required">*</span>
+                        </label>
+
+                        <select
+                            id="course"
+                            name="course"
+                            required
+                        >
+                            <option value="">Select Course</option>
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="quota">
+                            Quota
+                        </label>
+
+                        <select
+                            id="quota"
+                            name="quota"
+                        >
+                            <option value="">All Quotas</option>
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="state">
+                            State
+                        </label>
+
+                        <select
+                            id="state"
+                            name="state"
+                        >
+                            <option value="">All States</option>
+                        </select>
+
+                        <small id="stateHelp">
+                            State is optional.
+                        </small>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="allottedCategory">
+                            Allotted Category
+                        </label>
+
+                        <select
+                            id="allottedCategory"
+                            name="allottedCategory"
+                        >
+                            <option value="">All Categories</option>
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <div class="data-info">
+                            <span class="data-info-icon">✓</span>
+
+                            <div>
+                                <strong>Current Counselling Round</strong>
+                                <span>2026 Round 1</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="formError"
+                    class="form-error"
+                    role="alert"
+                    aria-live="polite"
+                ></div>
+
+
+                <button
+                    type="submit"
+                    id="predictBtn"
+                    class="predict-btn"
+                >
+                    <span class="btn-icon">✦</span>
+                    <span id="btnText">Predict My Colleges</span>
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <section
+        id="loading"
+        class="loading-section"
+        aria-live="polite"
+    >
+
+        <div class="loader"></div>
+
+        <h2>Finding the best colleges...</h2>
+
+        <p>
+            CEIQ is analyzing your NEET details.
+        </p>
+
+    </section>
+
+
+    <section
+        id="resultsSection"
+        class="results-section"
+    >
+
+        <div class="results-header">
+
+            <div>
+                <span class="section-label">YOUR RESULTS</span>
+
+                <h2>Top College Predictions</h2>
+
+                <p id="resultSubtitle">
+                    Based on your NEET details
+                </p>
+            </div>
+
+            <div class="sort-badge">
+                ✨ Best Match
+            </div>
+
+        </div>
+
+
+        <div id="results"></div>
+
+    </section>
+
+
+    <section
+        class="how-section"
+        id="how-it-works"
+    >
+
+        <div class="section-title">
+
+            <span>SIMPLE & SMART</span>
+
+            <h2>How CEIQ Works</h2>
+
+            <p>
+                Get personalized college predictions in three simple steps.
+            </p>
+
+        </div>
+
+
+        <div class="steps-container">
+
+            <article class="step-card">
+
+                <div class="step-number">01</div>
+
+                <h3>Enter Your Details</h3>
+
+                <p>
+                    Enter your NEET rank, category, course and counselling preferences.
+                </p>
+
+            </article>
+
+
+            <article class="step-card">
+
+                <div class="step-number">02</div>
+
+                <h3>CEIQ Analyzes</h3>
+
+                <p>
+                    Your details are compared with counselling and college data.
+                </p>
+
+            </article>
+
+
+            <article class="step-card">
+
+                <div class="step-number">03</div>
+
+                <h3>Explore Colleges</h3>
+
+                <p>
+                    View colleges that match your rank and selected preferences.
+                </p>
+
+            </article>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer id="contact">
+
+    <div class="footer-container">
+
+        <div class="footer-brand">
+
+            <img
+                src="ceiq-logo.png"
+                alt="CEIQ"
+                class="footer-logo"
+            >
+
+            <p>
+                Smart college predictions powered by data.
+            </p>
+
+            <p>
+                Helping students make better college decisions.
+            </p>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h3>Quick Links</h3>
+
+            <a href="#">Home</a>
+            <a href="#predictor">NEET Predictor</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#contact">Contact</a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h3>Project</h3>
+
+            <span>NEET 2026</span>
+            <span>Round 1 Dataset</span>
+            <span>CEIQ Predictor</span>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        <p>© 2026 CEIQ. All rights reserved.</p>
+
+        <p>Dream · Predict · Achieve</p>
+
+    </div>
+
+</footer>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
